@@ -1,0 +1,16 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "claude-kit",
+  "description": "Agentes y skills reutilizables entre proyectos, sacados de trabajo real y despegados del repositorio donde nacieron.",
+  "owner": {
+    "name": "Alejandro Quiroz"
+  },
+  "plugins": [
+    {
+      "name": "cazabugs",
+      "description": "Cadena de cuatro agentes para bugs: uno los registra y prioriza por cuánto bloquean, otro los reproduce y localiza la causa, otro los arregla, y un cuarto intenta tumbar el arreglo por una vía distinta antes de cerrarlo. Trae también el ida y vuelta con los issues de GitHub.",
+      "category": "workflow",
+      "source": "./plugins/cazabugs"
+    }
+  ]
+}

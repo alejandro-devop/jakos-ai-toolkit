@@ -1,0 +1,5 @@
+{
+  "name": "cazabugs",
+  "version": "0.1.0",
+  "description": "Cadena de cuatro agentes para bugs: uno los registra y prioriza, otro los reproduce y explica, otro los arregla y un cuarto intenta tumbar el arreglo antes de darlo por bueno. Ninguno se fía del anterior."
+}
