@@ -8,7 +8,7 @@ valen allí (puertos, gestor de paquetes, rutas de scripts). Esto separa las dos
 Es repetible: se puede volver a copiar desde el proyecto de origen y correrlo
 otra vez para traerse las mejoras que se hayan hecho allá.
 
-Uso:  python3 generalizar.py        (desde la raíz de claude-kit)
+Uso:  python3 generalizar.py        (desde la raíz de jakos-ai-toolkit)
 """
 import pathlib
 import re

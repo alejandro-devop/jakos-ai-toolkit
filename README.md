@@ -1,4 +1,4 @@
-# claude-kit
+# jakos-ai-toolkit
 
 Agentes y skills para Claude Code que se pueden llevar de un proyecto a otro.
 Salen de trabajo real y están despegados del repositorio donde nacieron: lo que
@@ -38,8 +38,8 @@ cerrarse, responde en el issue en el idioma de quien lo reportó.
 ## Instalar en un proyecto
 
 ```bash
-claude plugin marketplace add alejandro-devop/jakos-ai-tookit
-claude plugin install cazabugs@claude-kit
+claude plugin marketplace add alejandro-devop/jakos-ai-toolkit
+claude plugin install cazabugs@jakos-ai-toolkit
 ```
 
 Y dentro del proyecto, una vez:
@@ -57,14 +57,14 @@ existe para cortar.
 Para probar antes de subir nada, el marketplace también acepta una ruta local:
 
 ```bash
-claude plugin marketplace add ~/Developer/claude-kit
+claude plugin marketplace add ~/Developer/jakos-ai-toolkit
 ```
 
 ## Actualizar
 
 ```bash
-claude plugin marketplace update claude-kit
-claude plugin install cazabugs@claude-kit
+claude plugin marketplace update jakos-ai-toolkit
+claude plugin install cazabugs@jakos-ai-toolkit
 ```
 
 `/cazabugs-init` no pisa lo que ya esté: si encuentra un `PROTOCOLO.md`, ofrece

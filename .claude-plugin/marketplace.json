@@ -1,6 +1,6 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "claude-kit",
+  "name": "jakos-ai-toolkit",
   "description": "Agentes y skills reutilizables entre proyectos, sacados de trabajo real y despegados del repositorio donde nacieron.",
   "owner": {
     "name": "Alejandro Quiroz"
