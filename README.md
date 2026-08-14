@@ -38,7 +38,7 @@ cerrarse, responde en el issue en el idioma de quien lo reportó.
 ## Instalar en un proyecto
 
 ```bash
-claude plugin marketplace add alejandro-devop/claude-kit
+claude plugin marketplace add alejandro-devop/jakos-ai-tookit
 claude plugin install cazabugs@claude-kit
 ```
 
