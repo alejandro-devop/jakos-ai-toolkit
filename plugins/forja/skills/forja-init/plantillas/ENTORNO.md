@@ -86,6 +86,18 @@ exploración se paga una vez por feature.)_
 
 - `____`
 
+## Grafo del proyecto
+
+_(Si este repositorio tiene `graphify-out/`, dilo aquí: el `feature-arquitecto`
+y el `feature-revisor` lo consultan antes de buscar a mano, y `query`/`path`/
+`explain` responden en una llamada lo que a mano son muchas rondas. Anota
+también si el hook de post-commit está puesto —`graphify hook status`— porque de
+eso depende cuánto se puede confiar en que está al día. **Lo que esté sin
+commitear no aparece en el grafo.**)_
+
+- Grafo: `sí / no` — `graphify-out/graph.json`
+- Hook de post-commit: `sí / no`
+
 ## Trampas de este repositorio
 
 _(Lo que hace tropezar a alguien que llega nuevo, con el porqué. Ejemplos

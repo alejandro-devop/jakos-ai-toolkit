@@ -64,6 +64,12 @@ constructor recuerde de ellos. Y cada agente lleva un presupuesto de turnos cuyo
 fin no es cortarle el trabajo, sino que **se detenga y pregunte en vez de
 insistir** — que es por donde se va el gasto.
 
+Si el proyecto tiene un grafo de [graphify](https://github.com/Graphify-Labs/graphify)
+(`graphify-out/`), el arquitecto y el revisor lo consultan antes de buscar a
+mano: «¿qué hay alrededor de esto?» y «¿quién más usa esto?» son una llamada en
+vez de muchas rondas de grep. Es opcional — sin grafo, los agentes buscan a mano
+y nadie lo construye por su cuenta.
+
 ## Instalar en un proyecto
 
 ```bash

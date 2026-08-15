@@ -79,7 +79,14 @@ Lo que tienes que dejar respondido:
 6. **Los patrones vivos**, si ya se saben: el listado de referencia, el
    formulario de referencia. Esto es específico de features y le ahorra al
    arquitecto la mitad de su exploración.
-7. **Las trampas.** Búscalas de verdad: una IP o un host en la configuración que
+7. **Si hay grafo del proyecto.** Mira si existe `graphify-out/graph.json` y si
+   el hook de post-commit está puesto (`graphify hook status`). El arquitecto y
+   el revisor lo consultan antes de buscar a mano. Anótalo tal cual esté: decir
+   que hay grafo cuando no lo hay manda a un agente a correr un comando que
+   falla. **No lo construyas tú** — eso es una decisión del usuario, y sobre
+   este repositorio puede costar.
+
+8. **Las trampas.** Búscalas de verdad: una IP o un host en la configuración que
    parezca el del sitio y sea el de la API; un archivo de entorno no versionado
    que valga distinto en cada máquina; un servidor que tarde tanto en compilar
    que parezca apagado.

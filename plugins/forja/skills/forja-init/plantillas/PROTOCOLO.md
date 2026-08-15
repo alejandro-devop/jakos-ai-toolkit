@@ -227,6 +227,12 @@ herramienta vuelve a leer la conversación entera.
   tira a la basura lo que costó el paso anterior. Un plan que dice «copia estos
   tres archivos» lo hace arrancar en el turno dos. Es la diferencia entre que el
   arquitecto ahorre o sobre.
+- **Si el proyecto tiene grafo (`graphify-out/`), las preguntas relacionales se
+  consultan, no se buscan.** «¿Qué hay alrededor de esto?», «¿ya están
+  conectadas estas dos cosas?», «¿quién más usa esto?» son una llamada a
+  `query` / `path` / `explain`, y a mano son muchas rondas de grep leyendo
+  archivos enteros. Las de ubicación —«¿dónde está tal archivo?»— siguen siendo
+  un grep: ahí el grafo no aporta. El `ENTORNO.md` dice si hay grafo.
 - **Una sonda que mide seis cosas cuesta lo mismo que una que mide una.**
   Agrupa. Antes de lanzar una medición, pregúntate qué más vas a querer saber
   cuando veas el resultado, y mídelo ya.

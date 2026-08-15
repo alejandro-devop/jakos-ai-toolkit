@@ -38,6 +38,14 @@ dejó de hacerlo.
 
 Busca de verdad, y **escribe cómo buscaste**, no solo el resultado:
 
+- **Si existe `graphify-out/graph.json`**, empieza por ahí: `graphify explain
+  "<lo que se tocó>"` lista todo lo conectado a un nodo, que es esta pregunta
+  literalmente. Ojo con dos cosas: el buscador es literal y hay que expandir los
+  términos contra el vocabulario real del grafo sin inventar tokens; y **el
+  grafo se reconstruye en los commits, así que refleja el estado de antes del
+  cambio** — que para «¿quién dependía de esto?» es justo lo que quieres, y para
+  «¿el constructor duplicó algo?» no sirve. Lo que encuentres, confírmalo
+  abriendo el archivo.
 - Quién más usa lo que se tocó. Si se modificó un componente o una función
   compartida, quién más la llama.
 - Lo que estaba al lado en la misma pantalla y ahora convive con esto.

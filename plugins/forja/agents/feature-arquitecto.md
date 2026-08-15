@@ -30,6 +30,46 @@ proponer algo que ya se descartó.
 
 ## Qué ya existe
 
+### Si hay un grafo, empieza por ahí
+
+Mira si existe `graphify-out/graph.json`. Si está, tus dos primeras preguntas
+son consultas y no búsquedas:
+
+```bash
+graphify query "<los términos de la feature>"      # qué hay alrededor de esto
+graphify path "<concepto A>" "<concepto B>"        # ¿ya están conectados?
+```
+
+`query` devuelve nodos **con su `source_file` y `source_location`** — o sea, ya
+te da lo que tú tienes que entregar. `path` responde de un golpe la pregunta más
+cara de todas: si dos cosas que crees separadas ya se hablan en algún sitio. Ahí
+es donde se descubren las dos fuentes de verdad antes de crear la tercera.
+
+Dos cosas que la skill exige y no son opcionales:
+
+- **El buscador es literal**: coincidencia por subcadena, sin sinónimos ni
+  traducción. Hay que expandir la consulta contra el vocabulario real del grafo
+  antes de lanzarla, **eligiendo solo tokens que existan ahí** y sin inventar
+  ninguno. Si el pedido está en un idioma y el código en otro —lo normal—, este
+  paso no se salta. Si ningún token encaja, el grafo no sabe de esto: dilo y
+  busca a mano.
+- **Lee `graphify-out/reflections/LESSONS.md` si existe, antes de empezar.**
+  Lista fuentes preferidas y **callejones sin salida ya recorridos**. Es memoria
+  de agentes anteriores, y es gratis comparada con volver a recorrerlos.
+
+Si el grafo te resolvió algo, **devuélveselo** al terminar: `graphify save-result`
+con `--outcome useful` o `--outcome dead_end`. Eso es lo que hace que el próximo
+arquitecto no repita tu camino muerto.
+
+**El grafo no manda sobre el código.** Puede estar desactualizado: se reconstruye
+en cada commit, y lo que esté sin commitear no aparece. Lo que salga de una
+consulta se confirma abriendo el archivo antes de escribirlo en tu plan.
+
+Si no hay `graphify-out/`, no pasa nada y no lo construyas tú: sigue con lo de
+abajo.
+
+### A mano
+
 Busca de tres maneras, porque cada una encuentra lo que las otras no:
 
 1. **Por nombre.** Los términos de la feature y sus sinónimos razonables en el
