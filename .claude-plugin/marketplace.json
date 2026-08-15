@@ -11,6 +11,12 @@
       "description": "Cadena de cuatro agentes para bugs: uno los registra y prioriza por cuánto bloquean, otro los reproduce y localiza la causa, otro los arregla, y un cuarto intenta tumbar el arreglo por una vía distinta antes de cerrarlo. Trae también el ida y vuelta con los issues de GitHub.",
       "category": "workflow",
       "source": "./plugins/cazabugs"
+    },
+    {
+      "name": "forja",
+      "description": "Cadena de cuatro agentes para construir features: uno convierte el pedido en criterios comprobables y rebanadas, otro averigua qué ya existe antes de inventar, otro construye rebanada por rebanada y un cuarto revisa contra los criterios originales y busca qué se rompió al lado. El arquitecto solo entra cuando la feature introduce un concepto nuevo.",
+      "category": "workflow",
+      "source": "./plugins/forja"
     }
   ]
 }

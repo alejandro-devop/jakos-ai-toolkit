@@ -1,0 +1,5 @@
+{
+  "name": "forja",
+  "version": "0.1.0",
+  "description": "Cadena de cuatro agentes para construir features: uno convierte el pedido en criterios comprobables y rebanadas, otro averigua qué ya existe antes de inventar, otro construye rebanada por rebanada y un cuarto revisa contra los criterios originales y busca qué se rompió al lado. Nadie se revisa a sí mismo."
+}
