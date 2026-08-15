@@ -1,76 +1,79 @@
 # jakos-ai-toolkit
 
-Agentes y skills para Claude Code que se pueden llevar de un proyecto a otro.
-Salen de trabajo real y están despegados del repositorio donde nacieron: lo que
-es del proyecto se queda fuera, en un archivo que cada uno se genera.
+Agents and skills for Claude Code that travel from project to project. They
+come out of real work and are detached from the repository where they were
+born: whatever belongs to the project stays out, in a file each project
+generates for itself.
 
-## Qué hay dentro
+## What's inside
 
 ### cazabugs
 
-Cuatro agentes que se pasan un bug de mano en mano, y **ninguno se fía del
-anterior**:
+Four agents that pass a bug from hand to hand, and **none of them trusts the
+previous one**:
 
 ```
 bug-reporter  →  bug-detective  →  bug-hunter  →  bug-auditor
- registra y       reproduce y       arregla,      intenta tumbarlo
- prioriza        localiza la causa  no cierra     por otra vía
+ records and      reproduces and     fixes,        tries to knock the fix
+ prioritizes      finds the cause    doesn't close  down through another path
 ```
 
-Tres separaciones sostienen todo lo demás:
+Three separations hold up everything else:
 
-- **El detective no arregla**, ni una línea obvia. Si arregla, nadie mira ese
-  código con ojos nuevos.
-- **El hunter no cierra**, y deja el arreglo sin commitear para que se audite
-  tal cual. Nadie se audita a sí mismo.
-- **El auditor no toca código.** En el momento en que arregla lo que encontró,
-  deja de estar mirando desde fuera. Lo que encuentra, lo devuelve.
+- **The detective doesn't fix**, not even an obvious line. If it fixes, nobody
+  looks at that code with fresh eyes.
+- **The hunter doesn't close**, and leaves the fix uncommitted so it gets
+  audited exactly as it is. Nobody audits themselves.
+- **The auditor doesn't touch code.** The moment it fixes what it found, it
+  stops looking from the outside. What it finds, it returns.
 
-Lo que se pasan no es contexto de conversación: es un expediente en
-`docs/bugs/`, con cuatro secciones, que sobrevive a que cierres la sesión. La
-prioridad se decide con una sola pregunta —*¿puede la persona terminar lo que
-vino a hacer?*— y no por gravedad técnica, que es lo que con el tiempo vuelve
-todo urgente.
+What they pass around is not conversation context: it is a dossier in
+`docs/bugs/`, with four sections, that survives closing the session. Priority
+is decided with a single question — *can the person finish what they came to
+do?* — and not by technical severity, which over time turns everything urgent.
 
-Incluye `/bugs-github`, que trae los issues con etiqueta `bug` a la cola y, al
-cerrarse, responde en el issue en el idioma de quien lo reportó.
+Includes `/bugs-github`, which brings the issues labeled `bug` into the queue
+and, on close, replies on the issue in the language of whoever reported it.
 
 ### forja
 
-El hermano de `cazabugs` para el otro lado del trabajo: construir algo que
-todavía no existe.
+The sibling of `cazabugs` for the other side of the work: building something
+that doesn't exist yet.
 
 ```
-feature-analista  →  feature-arquitecto  →  feature-constructor  →  feature-revisor
- problema, límites    qué existe ya y        una rebanada,          criterios, y qué
- y criterios          dónde va lo nuevo      sin commitear          se rompió al lado
+feature-analyst  →  feature-architect  →  feature-builder  →  feature-reviewer
+ problem, limits     what exists already    one slice,          criteria, and what
+ and criteria        and where new code     uncommitted         broke next door
+                     goes
 ```
 
-Las mismas separaciones —el que planea no construye, el que construye no cierra,
-el que revisa no toca código— más dos cosas que solo tienen sentido en features:
+The same separations — whoever plans doesn't build, whoever builds doesn't
+close, whoever reviews doesn't touch code — plus two things that only make
+sense for features:
 
-- **El arquitecto no siempre entra.** Una pregunta lo decide: *¿esto introduce
-  un concepto nuevo, o se cuelga de uno que ya existe?* Lo que se cuelga va
-  directo al constructor. La decisión queda escrita **con su razón**, porque
-  equivocarse hacia el otro lado significa construir por segunda vez algo que ya
-  estaba, y eso no se descubre hasta meses después.
-- **Se construye por rebanadas verticales**, y cada una se revisa antes de la
-  siguiente. El analista y el arquitecto corren una vez por feature; el
-  constructor y el revisor giran una vez por rebanada.
+- **The architect doesn't always run.** One question decides it: *does this
+  introduce a new concept, or does it hang off one that already exists?* What
+  hangs off goes straight to the builder. The decision is written down **with
+  its reason**, because getting it wrong the other way means building for the
+  second time something that was already there — and that isn't discovered
+  until months later.
+- **Work happens in vertical slices**, each reviewed before the next. The
+  analyst and the architect run once per feature; the builder and the reviewer
+  loop once per slice.
 
-Los criterios de aceptación se escriben **antes** de construir y nadie los
-reescribe después: el revisor los lee literalmente, no la versión que el
-constructor recuerde de ellos. Y cada agente lleva un presupuesto de turnos cuyo
-fin no es cortarle el trabajo, sino que **se detenga y pregunte en vez de
-insistir** — que es por donde se va el gasto.
+Acceptance criteria are written **before** building and nobody rewrites them
+afterwards: the reviewer reads them literally, not the version the builder
+remembers. And every agent carries a turn budget whose purpose is not to cut
+its work short, but to make it **stop and ask instead of insisting** — which
+is where the spend goes.
 
-Si el proyecto tiene un grafo de [graphify](https://github.com/Graphify-Labs/graphify)
-(`graphify-out/`), el arquitecto y el revisor lo consultan antes de buscar a
-mano: «¿qué hay alrededor de esto?» y «¿quién más usa esto?» son una llamada en
-vez de muchas rondas de grep. Es opcional — sin grafo, los agentes buscan a mano
-y nadie lo construye por su cuenta.
+If the project has a [graphify](https://github.com/Graphify-Labs/graphify)
+graph (`graphify-out/`), the architect and the reviewer consult it before
+searching by hand: "what's around this?" and "who else uses this?" are one
+call instead of many rounds of grep. It's optional — with no graph, the agents
+search by hand, and nobody builds one on their own.
 
-## Instalar en un proyecto
+## Installing into a project
 
 ```bash
 claude plugin marketplace add alejandro-devop/jakos-ai-toolkit
@@ -78,31 +81,33 @@ claude plugin install cazabugs@jakos-ai-toolkit
 claude plugin install forja@jakos-ai-toolkit
 ```
 
-Los dos son independientes: puedes instalar uno sin el otro. Y dentro del
-proyecto, una vez cada uno:
+The two are independent: you can install one without the other. And inside the
+project, once each:
 
 ```
 /cazabugs-init
 /forja-init
 ```
 
-Eso crea `docs/bugs/` y `docs/features/` con su protocolo y su índice, y —lo que
-de verdad importa— un `ENTORNO.md` con las direcciones donde corre *ese*
-proyecto, cómo conseguir datos de verdad y sus trampas propias. **Sin ese
-archivo los agentes se pasan media hora probando direcciones inventadas**, que
-es el gasto que este paso existe para cortar.
+That creates `docs/bugs/` and `docs/features/` with their protocol and their
+index, and — the part that actually matters — an `ENVIRONMENT.md` with the
+addresses where *that* project runs, how to get real data, and its own
+gotchas. **Without that file the agents spend half an hour trying made-up
+addresses**, which is the waste this step exists to cut.
 
-**Ese mapa es uno solo y se comparte.** Si ya corre una de las dos cadenas, la
-otra lo encuentra y no lo toca: `/forja-init` detecta el `ENTORNO.md` de bugs,
-lo reutiliza tal cual y no escribe nada en `docs/bugs/`.
+**That map is a single one, and it's shared.** If one of the two chains
+already runs, the other finds the map and doesn't touch it: `/forja-init`
+detects the bugs chain's `ENVIRONMENT.md`, reuses it as-is and writes nothing
+into `docs/bugs/`.
 
-Para probar antes de subir nada, el marketplace también acepta una ruta local:
+To try things out before publishing anything, the marketplace also accepts a
+local path:
 
 ```bash
 claude plugin marketplace add ~/Developer/jakos-ai-toolkit
 ```
 
-## Actualizar
+## Updating
 
 ```bash
 claude plugin marketplace update jakos-ai-toolkit
@@ -110,47 +115,74 @@ claude plugin install cazabugs@jakos-ai-toolkit
 claude plugin install forja@jakos-ai-toolkit
 ```
 
-Los `-init` no pisan lo que ya esté: si encuentran un `PROTOCOLO.md`, ofrecen
-tocar solo el `ENTORNO.md`. Los expedientes, la cola y el tablero son tuyos y no
-se tocan nunca.
+The `-init` skills don't stomp on what's already there: if they find a
+`PROTOCOL.md`, they offer to touch only the `ENVIRONMENT.md`. The dossiers,
+the queue and the board are yours and are never touched.
 
-## Cómo se usa, una vez instalado
+## Migrating projects that used the Spanish version (≤ 0.1.0)
 
-**Un bug:**
+Up to 0.1.0 the toolkit worked in Spanish; from 0.2.0 everything — agent
+prose, protocols, dossiers, front-matter — is English. Projects initialized
+with the Spanish version keep working if you pin the old plugin version, but
+to move one over, rename the working files and update the shared vocabulary:
 
-1. Se lo cuentas a Claude, o corres `/bugs-github`.
-2. Va al `bug-reporter`, que lo registra y le pone prioridad.
-3. Le dices que siga, y la sesión principal encadena detective → hunter →
-   auditor. **Puedes frenar entre paso y paso**: el estado vive en disco.
-4. El auditor cierra y te deja un resumen de qué pasaba y cómo se arregló.
-5. El commit lo haces tú, con el bug ya cerrado.
+| Spanish (old) | English (new) |
+|---|---|
+| `docs/bugs/PROTOCOLO.md`, `COLA.md`, `ENTORNO.md` | `PROTOCOL.md`, `QUEUE.md`, `ENVIRONMENT.md` |
+| `docs/features/PROTOCOLO.md`, `TABLERO.md` | `PROTOCOL.md`, `BOARD.md` |
+| `docs/bugs/adjuntos/` | `docs/bugs/attachments/` |
+| front-matter: `titulo`, `estado`, `prioridad`, `actualizado`, `reportado`/`pedido`, `arquitecto` | `title`, `status`, `priority`, `updated`, `reported`/`requested`, `architect` |
+| bug states: `reportado`, `analizado`, `arreglado`, `devuelto`, `cerrado`, `no-reproducible`, `descartado` | `reported`, `analyzed`, `fixed`, `returned`, `closed`, `not-reproducible`, `discarded` |
+| feature states: `pedido`, `especificado`, `planeado`, `en-construcción`, `en-revisión`, `entregado`, `bloqueado` | `requested`, `specified`, `planned`, `building`, `in-review`, `delivered`, `blocked` |
+| agents: `feature-analista`, `feature-arquitecto`, `feature-constructor`, `feature-revisor` | `feature-analyst`, `feature-architect`, `feature-builder`, `feature-reviewer` |
+| scripts: `issues-bug.sh --tope` / `issues-cerrar.sh --cerrar` | `issues-fetch.sh --limit` / `issues-close.sh --close` |
 
-**Una feature:**
+The simplest path: re-run `/cazabugs-init` / `/forja-init` (they will offer to
+reinstall the protocol) and rename existing dossiers' front-matter by hand.
+Old dossiers in Spanish stay readable either way — agents only need the shared
+file names and states to match.
 
-1. Se la cuentas a Claude, que se la pasa al `feature-analista`.
-2. Vuelve con el alcance, los criterios, las rebanadas y —si las hay— las
-   decisiones que tienes que tomar tú. **Ahí es donde te toca responder**, y es
-   a propósito: una decisión resuelta ahora vale por media hora de constructor
-   bloqueado después.
-3. Si la feature introduce un concepto nuevo, entra el arquitecto y averigua qué
-   ya existe. Si se cuelga de algo que ya está, se lo salta.
-4. Constructor y revisor giran por rebanada. Cada vuelta te deja algo usable.
-5. El commit lo haces tú.
+## How it's used, once installed
 
-**El entorno lo levantas tú.** Los agentes no arrancan ni apagan servicios: si
-algo está caído lo dicen y siguen con lo que no dependa de ello.
+**A bug:**
 
-## Mantener esto
+1. You tell Claude about it, or run `/bugs-github`.
+2. It goes to the `bug-reporter`, which records it and sets a priority.
+3. You tell it to go on, and the main session chains detective → hunter →
+   auditor. **You can stop between steps**: the state lives on disk.
+4. The auditor closes and leaves you a summary of what was wrong and how it
+   got fixed.
+5. The commit is yours to make, with the bug already closed.
 
-`cazabugs` nació dentro de un proyecto y sigue mejorando allí. Para traerse las
-mejoras: copiar los archivos del proyecto de origen a `plugins/cazabugs/` y
-correr
+**A feature:**
+
+1. You tell Claude, and Claude hands it to the `feature-analyst`.
+2. It comes back with the scope, the criteria, the slices and — if there are
+   any — the decisions that are yours to make. **That's where you answer**,
+   and it's on purpose: a decision resolved now is worth half an hour of a
+   blocked builder later.
+3. If the feature introduces a new concept, the architect comes in and finds
+   out what already exists. If it hangs off something that's already there, it
+   gets skipped.
+4. Builder and reviewer loop per slice. Every loop leaves you something
+   usable.
+5. The commit is yours.
+
+**You bring up the environment.** The agents don't start or stop services: if
+something is down they say so and continue with whatever doesn't depend on it.
+
+## Maintaining this
+
+The toolkit is the canonical home of both chains, in English. They still
+improve inside real projects; those improvements are ported back here by hand.
+After porting anything, run
 
 ```bash
-python3 generalizar.py
+python3 check.py
 ```
 
-que quita lo que sea de aquel repositorio (puertos, gestor de paquetes, rutas
-de scripts) y avisa de lo que se le escape. Lo que no detecte, se revisa a
-mano: **un agente con un mapa equivocado va con toda confianza a un sitio que
-no existe**, y eso hace más daño que no tener mapa.
+which flags host-project residue (ports, package managers, script paths from
+the repository where the improvement was born) and any Spanish leftovers. What
+it flags, you review by hand: **an agent with a wrong map walks confidently
+into a place that does not exist**, and that does more damage than having no
+map.

@@ -1,110 +1,111 @@
 ---
 name: cazabugs-init
-description: Prepara este proyecto para la cadena de agentes de bugs — crea docs/bugs/ con el protocolo, la cola y un ENTORNO.md rellenado a partir de cómo corre realmente el proyecto. Usar cuando el usuario invoque /cazabugs-init, cuando pida instalar o configurar cazabugs, o cuando un agente de bugs se detenga porque falta docs/bugs/ENTORNO.md.
+description: Prepares this project for the bug agent chain — creates docs/bugs/ with the protocol, the queue and an ENVIRONMENT.md filled in from how the project actually runs. Use when the user invokes /cazabugs-init, when they ask to install or set up cazabugs, or when a bug agent stops because docs/bugs/ENVIRONMENT.md is missing.
 ---
 
 # Skill: cazabugs-init
 
-Dejas este proyecto listo para la cadena `bug-reporter → bug-detective →
-bug-hunter → bug-auditor`. Se corre **una vez por proyecto**, y otra vez cuando
-el entorno cambie.
+You leave this project ready for the `bug-reporter → bug-detective →
+bug-hunter → bug-auditor` chain. Runs **once per project**, and again whenever
+the environment changes.
 
-El trabajo de verdad no es copiar tres archivos: es **rellenar `ENTORNO.md`**.
-De ese archivo depende que un agente verifique en la dirección correcta en vez
-de irse media hora probando direcciones inventadas — que es el gasto que esta
-cadena ya pagó una vez y no debería volver a pagar.
+The real work isn't copying three files: it's **filling in `ENVIRONMENT.md`**.
+That file is what lets an agent verify in the right direction instead of
+spending half an hour probing made-up addresses — a cost this chain already
+paid once and shouldn't pay again.
 
-## Paso 1: mira si ya está
+## Step 1: check whether it's already there
 
-Si `docs/bugs/PROTOCOLO.md` existe, **no lo pises**. Puede tener ajustes del
-usuario y expedientes vivos al lado. Di qué hay ya y ofrece:
+If `docs/bugs/PROTOCOL.md` exists, **don't stomp on it**. It may carry the
+user's adjustments, with live dossiers sitting next to it. Say what's already
+there and offer:
 
-- rellenar o corregir solo `ENTORNO.md` (lo habitual), o
-- reinstalar todo, avisando de que se pierden los ajustes locales.
+- filling in or fixing only `ENVIRONMENT.md` (the usual case), or
+- reinstalling everything, warning that local adjustments are lost.
 
-## Paso 2: copia el protocolo y la cola
+## Step 2: copy the protocol and the queue
 
-De `plantillas/` (junto a este archivo) a `docs/bugs/`:
+From `templates/` (next to this file) into `docs/bugs/`:
 
-- `PROTOCOLO.md` — la escala de prioridad, los estados y la plantilla del
-  expediente. Va tal cual: es el método, y no depende del proyecto.
-- `COLA.md` — el índice vacío.
+- `PROTOCOL.md` — the priority scale, the states, and the dossier template.
+  Goes in as-is: it's the method, and it doesn't depend on the project.
+- `QUEUE.md` — the empty index.
 
-Si el proyecto guarda su documentación en otro sitio, pregunta dónde y usa esa
-carpeta; luego dilo, porque los agentes buscan en `docs/bugs/`.
+If the project keeps its documentation elsewhere, ask where and use that
+folder; then say so, because the agents look in `docs/bugs/`.
 
-## Paso 3: averigua cómo corre el proyecto
+## Step 3: find out how the project runs
 
-Esta es la parte que importa. **Investiga primero, pregunta después**: llegar
-con tres cosas averiguadas y una duda concreta vale más que un cuestionario.
+This is the part that matters. **Investigate first, ask second**: showing up
+with three things figured out and one concrete doubt beats a questionnaire.
 
-Mira, según lo que haya: `README.md`, `CLAUDE.md`, `package.json` (o el archivo
-de tareas equivalente), `docker-compose.yml`, `Makefile`, `.env.example`,
-`.claude/launch.json`, y los scripts de arranque.
+Look at whatever's there: `README.md`, `CLAUDE.md`, `package.json` (or the
+equivalent task file), `docker-compose.yml`, `Makefile`, `.env.example`,
+`.claude/launch.json`, and the startup scripts.
 
-Lo que tienes que dejar respondido:
+What you have to leave answered:
 
-1. **En qué direcciones corre.** Puertos incluidos. Si hay varias piezas (sitio,
-   panel, API), todas.
-2. **Qué comando monta el entorno, y si sirve para un agente.** Casi nunca
-   sirve: los que arrancan todo suelen quedarse en primer plano —cuelgan el
-   turno— y ocupar los puertos que el usuario ya tiene abiertos. Nómbralos en
-   «lo que NO se debe correr» con el motivo.
-3. **Cómo conseguir datos de verdad** para pantallas de detalle. Comprueba si el
-   listado se pinta en el cliente: si es así, el HTML servido no trae ni un
-   enlace y hay que ir a la API o a la base de datos. Deja el comando exacto,
-   probado.
-4. **Qué comprobaciones existen**: tipos, linter, tests. Con su comando. Y
-   cuáles NO conviene correr (un build que pisa la carpeta del servidor de
-   desarrollo, una suite de diez minutos).
-5. **Las trampas.** Lo que hace tropezar a quien llega nuevo. Búscalas de
-   verdad: una IP o un host en la configuración que parezca el del sitio y sea
-   el de la API; un archivo de entorno no versionado que valga distinto en cada
-   máquina; un servidor que tarde tanto en compilar que parezca apagado.
+1. **What addresses it runs at.** Ports included. If there are several pieces
+   (site, panel, API), all of them.
+2. **What command assembles the environment, and whether it's usable by an
+   agent.** It almost never is: the ones that start everything tend to stay in
+   the foreground —they hang the turn— and grab the ports the user already has
+   open. Name them under "what must NOT be run", with the reason.
+3. **How to get real data** for detail screens. Check whether the listing is
+   rendered client-side: if so, the served HTML carries not a single link and
+   you have to go to the API or the database. Leave the exact command, tested.
+4. **What checks exist**: types, linter, tests. With their command. And which
+   ones NOT to run (a build that stomps on the dev server's folder, a
+   ten-minute suite).
+5. **The gotchas.** What trips up whoever arrives new. Truly hunt for them: an
+   IP or host in the config that looks like the site's and is the API's; an
+   unversioned env file worth something different on every machine; a server
+   that takes so long to compile it looks like it's down.
 
-**Comprueba lo que escribas.** Una dirección que no responde, un comando que no
-existe o un identificador inventado en `ENTORNO.md` es peor que dejar el hueco:
-el agente lo dará por bueno. Si algo no lo pudiste verificar, escríbelo como
-pendiente y dilo.
+**Verify what you write.** An address that doesn't answer, a command that
+doesn't exist, or a made-up identifier in `ENVIRONMENT.md` is worse than
+leaving the blank: the agent will take it as true. If you couldn't verify
+something, write it down as pending and say so.
 
-Pregunta al usuario solo lo que no puedas verificar tú: qué servicios levanta
-él, cuáles son suyos y no hay que tocar, y si hay algo que se rompe fácil.
+Ask the user only what you can't verify yourself: which services they bring
+up, which ones are theirs and must not be touched, and whether anything breaks
+easily.
 
-## Paso 4: la sonda, si vale la pena
+## Step 4: the probe, if it's worth it
 
-Si el proyecto tiene varias piezas o datos que hay que sacar de una API, escribe
-un script corto que responda **todo** el ENTORNO de una vez —qué está en pie,
-rutas, un identificador real— y anótalo en la sección «Sonda».
+If the project has several pieces or data that must come out of an API, write
+a short script that answers the **whole** ENVIRONMENT at once —what's up,
+routes, one real identifier— and record it under the "Probe" section.
 
-Es lo que más ahorra: un agente paga todo su contexto en cada turno, así que
-diez preguntas sueltas cuestan diez veces lo que una sonda que las responde
-juntas. Tres detalles que se aprendieron a golpes:
+It's the biggest saver there is: an agent pays its whole context on every
+turn, so ten loose questions cost ten times what one probe that answers them
+together does. Three details learned the hard way:
 
-- Distingue **apagado** de **arriba pero compilando**. Con `curl`, el código de
-  salida 7 es que no hay nadie y el 28 es que hay alguien ocupado. Confundirlos
-  hace que un agente monte un entorno encima del que ya estaba.
-- No des por sabida la máquina: nada de rutas absolutas ni de valores sacados
-  de archivos que no están versionados. Que la raíz salga de la ubicación del
-  propio script.
-- `ss` y `lsof` no existen en todas partes; `curl` sí.
+- Tell **down** apart from **up but compiling**. With `curl`, exit code 7
+  means nobody's there and 28 means somebody's there but busy. Confusing them
+  makes an agent stack an environment on top of the one already running.
+- Don't assume the machine: no absolute paths, no values pulled from files
+  that aren't versioned. Derive the root from the script's own location.
+- `ss` and `lsof` don't exist everywhere; `curl` does.
 
-## Paso 5: cuéntale al usuario cómo se usa
+## Step 5: tell the user how it's used
 
-Corto, y con lo que le toca a él:
+Short, and with their part in it:
 
-- Cómo entra un bug: contárselo a Claude, que se lo pasa al `bug-reporter`.
-- Que la cadena la encadena la sesión principal y puede frenar entre paso y
-  paso.
-- Que el `bug-hunter` **no commitea**: el arreglo se queda en el árbol de
-  trabajo para que el auditor lo pruebe, y el commit lo decide él.
-- Que el entorno lo levanta él, porque los agentes no lo hacen.
-- Y qué quedó a medias en `ENTORNO.md`, si algo quedó.
+- How a bug comes in: they tell Claude, who hands it to the `bug-reporter`.
+- That the chain is chained by the main session and can pause between steps.
+- That the `bug-hunter` **does not commit**: the fix stays in the working
+  tree for the auditor to test, and the commit is the user's call.
+- That the environment is theirs to bring up, because the agents don't.
+- And what was left half-done in `ENVIRONMENT.md`, if anything was.
 
-## Lo que NO haces
+## What you do NOT do
 
-- **No arreglas bugs ni registras ninguno.** Esto solo prepara el terreno.
-- **No inventes el contenido de `ENTORNO.md`.** Un mapa equivocado es peor que
-  ninguno: manda al agente a un sitio que no existe con toda confianza.
-- No cambies el `PROTOCOLO.md`. Si a este proyecto le hace falta una regla
-  distinta, va en `ENTORNO.md`.
-- No instales dependencias ni levantes servicios para averiguar.
+- **You don't fix bugs and you don't register any.** This only lays the
+  ground.
+- **Don't invent the contents of `ENVIRONMENT.md`.** A wrong map is worse
+  than none: it sends the agent, fully confident, to a place that doesn't
+  exist.
+- Don't change `PROTOCOL.md`. If this project needs a different rule, it goes
+  in `ENVIRONMENT.md`.
+- Don't install dependencies or bring up services to find things out.
