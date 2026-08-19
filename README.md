@@ -73,20 +73,85 @@ searching by hand: "what's around this?" and "who else uses this?" are one
 call instead of many rounds of grep. It's optional — with no graph, the agents
 search by hand, and nobody builds one on their own.
 
+### qa-squad
+
+Where `cazabugs` waits for a bug to be reported, this one goes looking. Three
+agents, and the split is the point:
+
+```
+qa-planner  →  qa-tester (one per charter)  →  qa-triage
+ finds the      executes, measures and         removes duplicates, separates
+ oracles and    documents                      defect from decision, registers
+ writes the
+ charters
+```
+
+**It hunts the way a QA does, not by wandering.** Before anything is tried,
+the planner finds the *oracles* — whatever states what correct means here:
+validation schemas, the layer that writes to storage, the documents carrying
+standing decisions. Without an oracle there is no finding, only an opinion,
+and every finding cites the one it was measured against. Testers apply named
+techniques (boundary values, decision tables, state transitions, round trip,
+interruption — and error guessing last, as one technique rather than the
+method).
+
+Three kinds come out, and only one of them is a bug: what contradicts an
+oracle. What works as specified and still gets in the way is an
+**improvement**; what no rule covers is a **question** — and every question
+somebody answers is a business rule the project never wrote down.
+
+Findings live in the squad's own register. `/qa-dispatch` is what hands one to
+`cazabugs`, and it is a separate command because it is the user's decision.
+
+### scout-team
+
+The other half of "is this any good": not *is it broken*, but *does it let you
+use it*.
+
+```
+scout (one per errand)  →  scout-lead
+ eyes and hands only,       verifies, measures, and turns
+ no page structure,         friction into suggestions
+ no source
+```
+
+**The scout is deprived of tools on purpose.** An agent that reads a page's
+accessibility tree gets every control handed to it, labelled, including the
+hidden ones — so it can never report the one thing this team exists for: that
+a person would not have found it. So it doesn't have those tools. It looks,
+it clicks, it types, and when it can't find something, that *is* the finding.
+
+Then the lead goes and checks: was it there? At what size, at what contrast,
+below the fold, behind a hover that doesn't exist on a phone, labelled for a
+screen reader but invisible to an eye? The scout says *"I never found how to
+remove it"*; the lead says *"it was there at 2.4:1 behind an unlabelled
+menu"*. One is a feeling; together they are evidence.
+
+Scouts are sent as the people who really use the product — written down once
+per project, not invented per run — with an errand to finish rather than a
+module to review. No friction, no suggestion: anything nobody stumbled over is
+advice, and advice could have been written without opening the product. Where
+something needs to be said, the suggestion carries the sentence itself, in the
+product's voice.
+
 ## Installing into a project
 
 ```bash
 claude plugin marketplace add alejandro-devop/jakos-ai-toolkit
 claude plugin install cazabugs@jakos-ai-toolkit
 claude plugin install forja@jakos-ai-toolkit
+claude plugin install qa-squad@jakos-ai-toolkit
+claude plugin install scout-team@jakos-ai-toolkit
 ```
 
-The two are independent: you can install one without the other. And inside the
-project, once each:
+They are independent: install one without the others. And inside the project,
+once each:
 
 ```
 /cazabugs-init
 /forja-init
+/qa-squad-init
+/scout-team-init
 ```
 
 That creates `docs/bugs/` and `docs/features/` with their protocol and their
@@ -95,10 +160,12 @@ addresses where *that* project runs, how to get real data, and its own
 gotchas. **Without that file the agents spend half an hour trying made-up
 addresses**, which is the waste this step exists to cut.
 
-**That map is a single one, and it's shared.** If one of the two chains
-already runs, the other finds the map and doesn't touch it: `/forja-init`
-detects the bugs chain's `ENVIRONMENT.md`, reuses it as-is and writes nothing
-into `docs/bugs/`.
+**That map is a single one, and it's shared.** Whichever chain runs first
+writes it; the rest find it and don't touch it — `/forja-init` detects the bug
+chain's `ENVIRONMENT.md`, reuses it as-is and writes nothing into
+`docs/bugs/`. The two newer ones each add a section of their own that nobody
+else's map has: how the agents get past a sign-in and what test data they may
+create, and — for the scouts — **who really uses this product**.
 
 To try things out before publishing anything, the marketplace also accepts a
 local path:
@@ -113,6 +180,8 @@ claude plugin marketplace add ~/Developer/jakos-ai-toolkit
 claude plugin marketplace update jakos-ai-toolkit
 claude plugin install cazabugs@jakos-ai-toolkit
 claude plugin install forja@jakos-ai-toolkit
+claude plugin install qa-squad@jakos-ai-toolkit
+claude plugin install scout-team@jakos-ai-toolkit
 ```
 
 The `-init` skills don't stomp on what's already there: if they find a
@@ -167,6 +236,27 @@ file names and states to match.
 4. Builder and reviewer loop per slice. Every loop leaves you something
    usable.
 5. The commit is yours.
+
+**A QA session:**
+
+1. `/qa-run <module>`. The planner writes the charters, the testers run them
+   **one at a time** — they write data, and two at once invent findings that
+   were never there — and the triage registers what survived.
+2. You get back the count by kind, the worst one, and **the questions**: the
+   things only you can settle. Each answer is a rule the project never wrote
+   down, and writing it down makes the next session sharper.
+3. `/qa-dispatch <ID>` sends a bug to `cazabugs`. Nothing leaves the register
+   on its own.
+
+**A scouting run:**
+
+1. `/scout-run <module>`. If there's a sign-in, you open it first — agents
+   never type credentials.
+2. The scouts go one at a time, each as one of the people who really use the
+   product, each with something to finish. Then the lead verifies what they
+   couldn't find and measures why.
+3. You get suggestions, each tied to somebody actually stumbling, with the
+   wording where wording is what's missing. Accepting one is your call.
 
 **You bring up the environment.** The agents don't start or stop services: if
 something is down they say so and continue with whatever doesn't depend on it.

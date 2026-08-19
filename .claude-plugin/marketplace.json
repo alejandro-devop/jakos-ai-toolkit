@@ -17,6 +17,18 @@
       "description": "A chain of four agents for building features: one turns the request into testable criteria and slices, another finds out what already exists before inventing, another builds slice by slice, and a fourth reviews against the original criteria and hunts for what broke next door. The architect only runs when the feature introduces a new concept.",
       "category": "workflow",
       "source": "./plugins/forja"
+    },
+    {
+      "name": "qa-squad",
+      "description": "A testing squad that hunts bugs the way a QA does: a planner that finds what states the rules in this project and writes charters against them, testers that apply named techniques one at a time, and a triage that separates a defect from a deliberate decision. It registers findings and dispatches them; it fixes nothing.",
+      "category": "workflow",
+      "source": "./plugins/qa-squad"
+    },
+    {
+      "name": "scout-team",
+      "description": "Scouts that use a module the way a person does \u2014 eyes and hands only, with no access to the page structure or the source, so that not finding something is itself the finding \u2014 and a lead that goes and measures why it was missable. It suggests improvements with the exact wording to use; it builds nothing.",
+      "category": "workflow",
+      "source": "./plugins/scout-team"
     }
   ]
 }

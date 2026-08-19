@@ -1,0 +1,5 @@
+{
+  "name": "qa-squad",
+  "version": "0.1.0",
+  "description": "A testing squad that goes looking for bugs the way a QA does: charters written against the oracles the project already has, named test-design techniques, and a triage that separates a defect from a decision. It registers findings; it fixes nothing."
+}
