@@ -24,12 +24,23 @@ Then, and this is not optional:
   loaded, and it can't tell "this product is confusing" from "nothing
   rendered". If something is down, say so and stop.
 - **Check that a screenshot actually comes back.** Open a tab and take one.
-  This whole team rests on looking, and in some setups the window is hidden
-  and screenshots come back empty. Finding that out now costs one turn;
-  finding out after three scouts costs three scouts.
-- **If there's a sign-in, the user opens it now.** Say so and wait. Agents
-  don't type credentials, and a scout that lands on a login screen will report
-  the login screen.
+  This whole team rests on looking, and in some setups the browser pane is
+  hidden and screenshots come back empty — the page isn't compositing frames,
+  so there is nothing to capture. Finding that out now costs one turn; finding
+  out after three scouts costs three scouts. A browser that is genuinely on
+  screen, like the person's own through its extension, does not have this
+  problem.
+- **Check you are already signed in, and check it by looking.** Open the
+  module's address and read the page: if what comes back is the sign-in
+  screen, **stop the run and say so**. Do not spend a scout to find that out —
+  three of them would come back having reported the login form.
+
+  **Nobody installs a session.** Not you, not the scouts. Agents don't type
+  credentials, and an agent that mints itself a session is exactly what the
+  permission rules exist to stop. The session is opened beforehand by the
+  person, in the browser this project's map names — which is why using their
+  own browser, where they are usually signed in already, tends to be the
+  cheapest setup of all.
 
 ## 1. Write the errands
 
@@ -52,7 +63,8 @@ is on a phone, and the run says so.
 ## 2. Send them, one at a time
 
 One `scout` per errand, **serially**, each with its errand, its starting
-address, the naming prefix for anything it creates, and nothing else. No
+address, **which browser to work in**, the naming prefix for anything it
+creates, and nothing else. No
 protocol, no register, no map — it can't read files anyway, and everything you
 add to the prompt is something it "knows" that a person arriving wouldn't.
 

@@ -1,5 +1,5 @@
 {
   "name": "scout-team",
-  "version": "0.1.0",
-  "description": "Scouts that use a module as a person does — with eyes and hands only, no access to the DOM or the source — and a lead that turns what they could not find into measured evidence. It suggests improvements; it builds nothing."
+  "version": "0.1.1",
+  "description": "Scouts that use a module as a person does \u2014 with eyes and hands only, no access to the DOM or the source \u2014 and a lead that turns what they could not find into measured evidence. It suggests improvements; it builds nothing."
 }

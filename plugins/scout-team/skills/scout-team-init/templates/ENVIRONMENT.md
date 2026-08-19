@@ -37,13 +37,26 @@ they're here, on what device, and how much they already know.)_
 **At least one of them should be arriving for the first time.** What a product
 assumes you already know is invisible to everybody who already knows it.
 
+## Which browser the agents use
+
+_(There may be two: the one built into the app, and the person's own browser
+through its extension. Name **one** here and the agents use only that one —
+two browsers means two sessions and two sets of data. Worth knowing when
+choosing: a browser that is genuinely on screen always returns screenshots,
+while a hidden pane composites no frames and returns empty ones.)_
+
+- `____`
+
 ## Areas behind a sign-in
 
-_(**Agents never type credentials.** If the module is behind a login, this
-says how a session gets opened before a run — normally the user opens it — how
-long it lasts, and how an agent can tell it expired. If there's no way in, say
-so: this team then can't reach that part of the product, which is worth
-knowing before a run, not during one.)_
+_(**Nobody installs a session** — not the scouts, who have no tools for it,
+and not the run. Agents don't type credentials, and an agent that mints itself
+a session is what the permission rules exist to stop. The person signs in once
+beforehand, in the browser named above, and the scouts inherit it. Say how
+long it lasts and how an agent can tell it expired — normally, it opens the
+page and gets the sign-in screen, which is a stopped run and not a finding. If
+there's no way in, say so: this team then can't reach that part of the
+product, which is worth knowing before a run rather than during one.)_
 
 ```
 ____

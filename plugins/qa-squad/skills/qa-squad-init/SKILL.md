@@ -40,12 +40,15 @@ have.
 
 ## Step 4: the three sections that are yours
 
-**How to get past a sign-in.** If the module under test lives behind a login,
-this decides whether the squad can work at all. **Agents never type
-credentials** — no passwords, no tokens into a form. Investigate what the
-project offers, and if there is nothing, say so plainly: everything behind the
-login then comes back as manual steps, and that is a real limit the user
-should know before the first session, not after it.
+**Which browser, and how a session gets there.** If the module lives behind a
+login, this decides whether the squad can work at all. **Nobody installs a
+session** — agents don't type credentials, and one that mints itself a session
+is what the permission rules exist to stop. The person signs in once
+beforehand, in the browser you name here, and the agents inherit it. Name one
+browser: the app's own or the person's through its extension, whichever they
+are already signed into. If there is no way in at all, say so plainly:
+everything behind the login comes back as manual steps, and that is a real
+limit the user should know before the first session, not after it.
 
 **Test data.** Testers write. Find out what is safe to create, what naming
 makes an agent's litter recognisable later, and what must never be deleted —

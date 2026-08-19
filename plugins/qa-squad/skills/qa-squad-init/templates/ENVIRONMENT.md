@@ -26,19 +26,30 @@ To look at a screen, open a tab with
 `preview_start {url: "<the address above>"}` — it's a browser tab, it starts
 no server.
 
+## Which browser the agents use
+
+_(There may be two: the one built into the app, and the person's own browser
+through its extension. Name **one** here and the agents use only that one —
+two browsers means two sessions and two sets of data. Worth knowing when
+choosing: a browser that is genuinely on screen always returns screenshots,
+while a hidden pane composites no frames and returns empty ones.)_
+
+- `____`
+
 ## Areas behind a sign-in
 
-_(If the module under test is behind a login, this section decides whether the
-squad can work at all. **Agents never type credentials** — not a password, not
-a token into a form. So one of these has to be true, and it must say which:)_
+_(If the module under test is behind a login, this decides whether the squad
+can work at all. **Nobody installs a session** — not the agents, not the
+orchestrator. Agents don't type credentials, and an agent that mints itself a
+session is what the permission rules exist to stop. So the person signs in
+once, beforehand, in the browser named above, and the agents inherit it.
+Answer three things:)_
 
-- The user signs in once before the session and the browser keeps the session
-  alive — say how long it lasts and how an agent can tell it expired.
-- The project has a development-only way in, and this says exactly how to use
-  it, what makes it refuse to work outside development, and that it is never
-  enabled where real data lives.
-- There is no way in, and then everything behind the login comes back as
-  manual test steps for the user, said plainly and not attempted.
+- **How long a session lasts**, so it's clear how often that has to happen.
+- **How an agent can tell it expired** — usually: it opens the page and gets
+  the sign-in screen instead. That is a stopped run, not a finding.
+- **If there is no way in at all**, say so: everything behind the login then
+  comes back as manual steps for the person, said plainly and not attempted.
 
 ```
 ____

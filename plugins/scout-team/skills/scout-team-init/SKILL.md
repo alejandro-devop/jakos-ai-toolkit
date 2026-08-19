@@ -48,9 +48,15 @@ especially, whoever built it.
 
 ## Step 5: the practical limits
 
-- **Sign-in.** Agents never type credentials. Say how a session gets opened
-  before a run and how long it lasts. If there's no way in, say so plainly:
-  this team then cannot reach that part of the product.
+- **Which browser.** There may be two: the app's own, and the person's
+  browser through its extension. Name one. Two things decide it: where the
+  person is already signed in, and whether screenshots come back — a hidden
+  pane composites no frames and returns empty ones.
+- **Sign-in.** Nobody installs a session, not the agents and not the run. The
+  person signs in once beforehand in that browser and the scouts inherit it.
+  Say how long it lasts and how an agent can tell it expired. If there's no
+  way in, say so plainly: this team then cannot reach that part of the
+  product.
 - **What may be created and what may never be touched.** Scouts write while
   doing their errand.
 - **Whether screenshots come back at all.** This matters more here than

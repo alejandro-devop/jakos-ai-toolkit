@@ -21,8 +21,14 @@ spend their budget guessing addresses.
 
 Check what the environment section says is needed and **say what is down
 before spending a single agent**: a session whose services are not up produces
-three testers reporting the same nothing. If the module is behind a sign-in,
-this is where the user opens it — say so and wait.
+three testers reporting the same nothing.
+
+If the module is behind a sign-in, **verify you are already in by opening the
+page and reading it**, before spending anything. If the sign-in screen comes
+back, stop and say so. Nobody here installs a session: agents don't type
+credentials, and an agent that mints one for itself is what the permission
+rules exist to stop. The person opens it beforehand, in the browser this
+project's map names.
 
 ## 1. Plan
 
